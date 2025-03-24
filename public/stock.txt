@@ -1,0 +1,28 @@
+{
+  "ljj": [
+    { "id": 6000, "stock": 1 },
+    { "id": 3000, "stock": 1 },
+    { "id": 1000, "stock": 1 },
+    { "id": 500, "stock": 1 },
+    { "id": 200, "stock": 1 },
+    { "id": 50, "stock": 1 },
+    { "id": 15, "stock": 1 }
+  ],
+  "byl": [
+      { "id": 3000, "stock": 1 },
+      { "id": 2000, "stock": 1 },
+      { "id": 1000, "stock": 1 },
+      { "id": 500, "stock": 1 },
+      { "id": 250, "stock": 1 },
+      { "id": 100, "stock": 1 }
+  ],
+  "product": [
+      { "id": 1200, "stock": 1 },
+      { "id": 800, "stock": 1 },
+      { "id": 400, "stock": 1 },
+      { "id": 200, "stock": 1 },
+      { "id": 100, "stock": 1 },
+      { "id": 40, "stock": 1 },
+      { "id": 10, "stock": 1 }
+  ]
+}

@@ -1,17 +1,17 @@
 <template>
-  <div class="home">
-    <AUM />
+  <div class="yyy">
+    <YYY />
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import AUM from '@/components/AUM.vue'
+import YYY from '@/components/YYY.vue'
 
 export default {
-  name: 'AUMView',
+  name: 'YYYView',
   components: {
-    AUM
+    YYY
   }
 }
 </script>
