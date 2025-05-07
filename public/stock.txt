@@ -6,7 +6,14 @@
     { "id": 500, "stock": 1 },
     { "id": 200, "stock": 1 },
     { "id": 50, "stock": 1 },
-    { "id": 15, "stock": 1 }
+    { "id": 15, "stock": 1 },
+    { "id": 4800, "stock": 1 },
+    { "id": 2400, "stock": 1 },
+    { "id": 800, "stock": 1 },
+    { "id": 400, "stock": 1 },
+    { "id": 160, "stock": 1 },
+    { "id": 40, "stock": 1 },
+    { "id": 10, "stock": 1 }
   ],
   "byl": [
       { "id": 3000, "stock": 1 },

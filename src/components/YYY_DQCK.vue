@@ -220,9 +220,9 @@
 
         <div class="speech_text">
           相当于您只要转入<span>{{this.form.new_aum}}</span>万元，并将<span>{{this.form.new_aum_to_deposit}}</span>万元存<span>{{this.form.product_date}}</span>定期产品，就可以拿利息<span>{{this.form.deposit_rights}}</span>元
-          <label v-if="'string' !== this.form.product_type">，外加<span>{{this.form.product_rights}}</span>元等值的定期产品达标奖励</label>
-          <label v-if="'string' !== this.form.ljj_type">，同时还可以享受立减金<span>{{this.form.ljj_rights}}</span>元</label> 。
-          <label v-if="'string' !== this.form.byl_type">您还可以参与我行资产提升和保有礼活动，资金保持到下月10号不下降还能额外拿到<span>{{this.form.byl_rights}}</span>元等值奖励，</label>
+<!--          <label v-if="'string' !== this.form.product_type">，外加<span>{{this.form.product_rights}}</span>元等值的定期产品达标奖励</label>
+          <label v-if="'string' !== this.form.ljj_type">，同时还可以享受立减金<span>{{this.form.ljj_rights}}</span>元</label> -->。
+          <label v-if="'string' !== this.form.byl_type">您还可以参与我行资产提升和保有礼活动，资金保持到下月10号不下降还能额外拿到<span>{{this.form.byl_rights + this.form.product_rights + this.form.ljj_rights}}</span>元等值奖励，</label>
           <label v-if="'string' !== this.form.ljj_type || 'string' !== this.form.byl_type || 'string' !== this.form.product_type">利息加等值奖励合计<span>{{this.form.total_rights}}</span>元，</label>
           就相当于至少年化收益率<span>{{this.form.annual_rights_rate}}</span>。
         </div>

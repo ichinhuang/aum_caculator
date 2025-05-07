@@ -259,23 +259,23 @@ export default {
       this.form.increase_aum_time = (this.form.new_aum * 1 + this.form.this_month_aum * 1 - this.form.last_month_time_aum).toFixed(2);
 
       if (this.form.increase_aum_avg >= 600) {
-        this.form.ljj_rights = 6000
+        this.form.ljj_rights = 4800
       }else if (this.form.increase_aum_avg >= 300) {
-        this.form.ljj_rights = 3000
+        this.form.ljj_rights = 2400
       }else if (this.form.increase_aum_avg >= 100) {
-        this.form.ljj_rights = 1000
+        this.form.ljj_rights = 800
       }else if (this.form.increase_aum_avg >= 50) {
-        this.form.ljj_rights = 500
+        this.form.ljj_rights = 400
       }else if (this.form.increase_aum_avg >= 20) {
-        this.form.ljj_rights = 200
+        this.form.ljj_rights = 160
       }else if (this.form.increase_aum_avg >= 5) {
-        this.form.ljj_rights = 50
+        this.form.ljj_rights = 40
       }else if (this.form.increase_aum_avg >= 1) {
-        this.form.ljj_rights = 15
+        this.form.ljj_rights = 10
       }else if (this.form.increase_aum_avg >= 0.2) {
         this.form.ljj_rights = '抽奖'
         this.form.ljj_type = 'string'
-      }else {
+      } else {
         this.form.ljj_rights = ''
         this.form.ljj_type = 'string'
       }

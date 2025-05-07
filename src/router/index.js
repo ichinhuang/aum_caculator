@@ -10,8 +10,8 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
-    name: 'yyydqck',
-    component: YYYDQCKView
+    name: 'yyy',
+    component: YYYView
   },
   {
     path: '/c/aum',

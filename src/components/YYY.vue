@@ -7,13 +7,13 @@
     <div class="item">
 
       <el-divider content-position="left" class="divider">查询输入</el-divider><br>
-      <el-form-item label="月初日期">
+      <el-form-item label="开始日期">
         <el-col :span="11">
           <el-date-picker type="date" placeholder="选择日期" v-model="form.start_date" style="width: 49vw;" readonly="readonly"></el-date-picker>
         </el-col>
       </el-form-item>
 
-      <el-form-item label="上月月日均（万元）"
+      <el-form-item label="前三个月最大月日均（万元）"
                     prop="last_month_aum"
                     :rules="[
          { required: true, message: 'AUM不能为空'},
@@ -32,7 +32,7 @@
         <el-input v-model="form.last_month_aum" type=“number” style="width: 48vw;"></el-input>
       </el-form-item>
 
-      <el-form-item label="本月已有月日均（万元）"
+      <el-form-item label="当月已有月日均预估（万元）"
                     prop="this_month_aum"
                     :rules="[
          { required: true, message: 'AUM不能为空'},
@@ -99,10 +99,6 @@
         <el-input v-model="form.ljj_rights" type=“number” style="width: 50vw;" readonly="readonly"></el-input>
       </el-form-item>
 
-      <el-form-item label="享受资产提升保有礼收益" label-width="40vw">
-        <el-input v-model="form.byl_rights" type=“number” style="width: 50vw;" readonly="readonly"></el-input>
-      </el-form-item>
-
       <el-form-item label="享受7天通知存款收益" label-width="40vw">
         <el-input v-model="form.deposit_rights" type=“number” style="width: 50vw;" readonly="readonly"></el-input>
       </el-form-item>
@@ -145,11 +141,11 @@ export default {
   data() {
       return {
         form: {
-          start_date: '',
-          caculate_date: '',
-          last_month_aum: '',
-          this_month_aum: '',
-          estimate_aum: '',
+          start_date: '2025-04-01',
+          caculate_date: '2025-04-25',
+          last_month_aum: '20',
+          this_month_aum: '20',
+          estimate_aum: '90',
           this_month_aum_real: '',
           increase_aum: '',
           ljj_rights: '',
@@ -198,6 +194,7 @@ export default {
         const month = now.getMonth() + 1; // JavaScript 的月份从 0 开始，所以要 +1\
         this.form.this_month = month;
         const count_of_days =  new Date(year, month, 0).getDate();
+        alert(this.form.estimate_aum + ' ' + count_of_days  + ' '  + this.form.caculate_date + ' ' + this.form.start_date + ' ' +  this.form.this_month_aum + ' ' + count_of_days + ' ' + count_of_days)
         this.form.this_month_aum_real = ((this.form.estimate_aum * (count_of_days - this.getDaysBetween(this.form.caculate_date, this.form.start_date)) + this.form.this_month_aum * count_of_days) / count_of_days).toFixed(2);
         this.form.increase_aum = (this.form.this_month_aum_real - this.form.last_month_aum).toFixed(2);
 
@@ -221,36 +218,14 @@ export default {
           this.form.ljj_rights = ''
         }
 
-        if (this.form.increase_aum >= 600) {
-          this.form.byl_rights = 3000
-        }else if (this.form.increase_aum >= 400) {
-          this.form.byl_rights = 2000
-        }else if (this.form.increase_aum >= 200) {
-          this.form.byl_rights = 1000
-        }else if (this.form.increase_aum >= 50) {
-          this.form.byl_rights = 500
-        }else if (this.form.increase_aum >= 20) {
-          this.form.byl_rights = 250
-        }else if (this.form.increase_aum >= 5) {
-          this.form.byl_rights = 100
-        }else {
-          this.form.byl_rights = ''
-        }
-
         var ljj = this.json_data.ljj.find(ljj => this.form.ljj_rights === ljj.id);
         if (ljj.stock !== 1) {
           this.form.ljj_rights = '已兑完'
           this.form.ljj_type = 'string'
         }
 
-        var byl = this.json_data.byl.find(byl => this.form.byl_rights === byl.id);
-        if (byl.stock !== 1) {
-          this.form.byl_rights = '已兑完'
-          this.form.byl_type = 'string'
-        }
-
-        this.form.deposit_rights = (this.form.estimate_aum * 0.009 * (count_of_days - this.getDaysBetween(this.form.caculate_date, this.form.start_date) - 1) / 360 * 10000).toFixed(2);
-        if ('抽奖' === this.form.ljj_rights){
+        this.form.deposit_rights = (this.form.estimate_aum * 0.009 * ((10 + count_of_days) - this.getDaysBetween(this.form.caculate_date, this.form.start_date) - 1) / 360 * 10000).toFixed(2);
+        if ('抽奖' === this.form.ljj_rights || '已兑完' === this.form.ljj_rights){
           this.form.total_rights = eval(this.form.deposit_rights);
         }else {
           this.form.total_rights = eval(this.form.ljj_rights) + eval(this.form.deposit_rights);
