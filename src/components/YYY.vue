@@ -116,12 +116,12 @@
       <el-divider content-position="left" class="divider">文字话术</el-divider><br>
 
 
-      <p v-if="'抽奖' === this.form.ljj_rights" class="speech_text">相当于您只要存入<span>{{ this.form.estimate_aum }}</span>万元，并存入7天通知存款（年利率0.9%），
+      <p v-if="'抽奖' === this.form.ljj_rights" class="speech_text">相当于您只要存入<span>{{ this.form.estimate_aum }}</span>万元，并存入7天通知存款（年利率0.65%），
         且持有到<span>{{ this.form.this_month }}</span>月底，就可以拿利息<span>{{ this.form.deposit_rights }}</span>元，
         同时还可以享受立减金<span>{{ this.form.ljj_rights }}</span>。
         相当于至少年化收益率<span>{{ this.form.annual_rights_rate }}</span>。
       </p>
-      <p v-else class="speech_text">相当于您只要存入<span>{{ this.form.estimate_aum }}</span>万元，并存入7天通知存款（年利率0.9%），
+      <p v-else class="speech_text">相当于您只要存入<span>{{ this.form.estimate_aum }}</span>万元，并存入7天通知存款（年利率0.65%），
         且持有到<span>{{ this.form.this_month }}</span>月底，就可以拿利息<span>{{ this.form.deposit_rights }}</span>元，
         同时还可以享受立减金<span>{{ this.form.ljj_rights }}</span>元。利息加立减金合计<span>{{ this.form.total_rights }}</span>元，
         就相当于至少年化收益率<span>{{ this.form.annual_rights_rate }}</span>。
@@ -223,7 +223,7 @@ export default {
           this.form.ljj_type = 'string'
         }
 
-        this.form.deposit_rights = (this.form.estimate_aum * 0.009 * ((10 + count_of_days) - this.getDaysBetween(this.form.caculate_date, this.form.start_date) - 1) / 360 * 10000).toFixed(2);
+        this.form.deposit_rights = (this.form.estimate_aum * 0.0065 * ((10 + count_of_days) - this.getDaysBetween(this.form.caculate_date, this.form.start_date) - 1) / 360 * 10000).toFixed(2);
         if ('抽奖' === this.form.ljj_rights || '已兑完' === this.form.ljj_rights){
           this.form.total_rights = eval(this.form.deposit_rights);
         }else {

@@ -101,8 +101,8 @@
       </el-form-item>
 
       <el-form-item>
-          <el-button type="primary" @click="onClick">立即计算</el-button>
-          <el-button>清空</el-button>
+          <el-button type="success" @click="onClick">立即计算</el-button>
+          <el-button type="danger">清空</el-button>
         </el-form-item>
 
     </div>

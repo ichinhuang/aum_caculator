@@ -166,7 +166,7 @@
         <el-divider content-position="left" class="divider">文字话术</el-divider><br>
 
         <div class="speech_text">
-          相当于您只要转入<span>{{this.form.new_aum}}</span>万元，并存入7天通知存款（年利率0.9%），
+          相当于您只要转入<span>{{this.form.new_aum}}</span>万元，并存入7天通知存款（年利率0.65%），
         且持有到下个月10号，就可以拿利息<span>{{this.form.deposit_rights}}</span>元
         <label v-if="'string' !== this.form.ljj_type">，同时还可以享受立减金<span>{{this.form.ljj_rights}}</span>元</label> 。
         <label v-if="'string' !== this.form.byl_type">您还可以参与我行资产提升保有礼活动，资金保持到下月10号不下降还能额外拿到<span>{{this.form.byl_rights}}</span>万元等值奖励，</label>
@@ -309,7 +309,7 @@ export default {
         this.form.byl_type = 'string'
       }
 
-      this.form.deposit_rights = (this.form.new_aum * 0.009 * ((count_of_days + 10) - this.getDaysBetween(this.form.calculate_date, this.form.start_date) - 1) / 360 * 10000).toFixed(2);
+      this.form.deposit_rights = (this.form.new_aum * 0.0065 * ((count_of_days + 10) - this.getDaysBetween(this.form.calculate_date, this.form.start_date) - 1) / 360 * 10000).toFixed(2);
       this.form.total_rights = this.form.deposit_rights;
       if ('string' !== this.form.ljj_type) {
         this.form.total_rights = this.form.total_rights * 1 + this.form.ljj_rights * 1;

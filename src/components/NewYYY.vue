@@ -1,6 +1,6 @@
 <template>
   <div class="newyyy">
-    <h2 style="padding-top: 30px;margin-bottom: 30px;">资产提升月月赢+七天通知存款计算器</h2>
+    <h2 style="padding-top: 30px;margin-bottom: 30px;">新资产提升月月赢+七天通知存款计算器</h2>
 
     <el-form ref="form" :model="form" label-width="auto">
 
@@ -13,8 +13,8 @@
           </el-col>
         </el-form-item>
 
-        <el-form-item label="前三个月最大月日均（万元）"
-                      prop="last_month_aum"
+        <el-form-item label="上月月日均（万元）"
+                      prop="max_aum"
                       :rules="[
          { required: true, message: 'AUM不能为空'},
          {
@@ -29,35 +29,10 @@
             trigger: 'blur'
           }
         ]">
-          <el-input v-model="form.last_month_aum" type=“number” style="width: 48vw;"></el-input>
+          <el-input v-model="form.max_aum" type=“number” style="width: 48vw;"></el-input>
         </el-form-item>
 
         <el-form-item label="当月已有月日均预估（万元）"
-                      prop="this_month_aum"
-                      :rules="[
-         { required: true, message: 'AUM不能为空'},
-         {
-            validator: function(rule, value, callback) {
-              if (/^(-?\d+)(\.\d+)?$/.test(value) == false) {
-                callback('请输入AUM');
-              } else {
-                //校验通过
-                callback();
-              }
-            },
-            trigger: 'blur'
-          }
-      ]">
-          <el-input v-model="form.this_month_aum" style="width: 48vw;"></el-input>
-        </el-form-item>
-
-        <el-form-item label="测算日期">
-          <el-col :span="11">
-            <el-date-picker type="date" placeholder="选择日期" v-model="form.caculate_date" style="width: 49vw;"></el-date-picker>
-          </el-col>
-        </el-form-item>
-
-        <el-form-item label="测算日起新存入资金（至少持有至月底）（万元）" label-width="42vw"
                       prop="estimate_aum"
                       :rules="[
          { required: true, message: 'AUM不能为空'},
@@ -76,9 +51,34 @@
           <el-input v-model="form.estimate_aum" style="width: 48vw;"></el-input>
         </el-form-item>
 
+        <el-form-item label="测算日期">
+          <el-col :span="11">
+            <el-date-picker type="date" placeholder="选择日期" v-model="form.calculate_date" style="width: 49vw;"></el-date-picker>
+          </el-col>
+        </el-form-item>
+
+        <el-form-item label="测算日起新存入资金（至少持有至月底）（万元）" label-width="42vw"
+                      prop="input_aum"
+                      :rules="[
+         { required: true, message: 'AUM不能为空'},
+         {
+            validator: function(rule, value, callback) {
+              if (/^(-?\d+)(\.\d+)?$/.test(value) == false) {
+                callback('请输入AUM');
+              } else {
+                //校验通过
+                callback();
+              }
+            },
+            trigger: 'blur'
+          }
+      ]">
+          <el-input v-model="form.input_aum" style="width: 48vw;"></el-input>
+        </el-form-item>
+
         <el-form-item>
-          <el-button type="primary" @click="onClick">立即计算</el-button>
-          <el-button @click="doClean">清空</el-button>
+          <el-button type="danger" @click="onClick">立即计算</el-button>
+          <el-button type="warning" @click="doClean">清空</el-button>
         </el-form-item>
 
       </div>
@@ -88,7 +88,7 @@
 
         <el-divider content-position="left" class="divider">输出数据</el-divider><br>
         <el-form-item label="当月月日均（万元）" label-width="40vw">
-          <el-input v-model="form.this_month_aum_real" type=“number” style="width: 50vw;" readonly="readonly"></el-input>
+          <el-input v-model="form.real_aum" type=“number” style="width: 50vw;" readonly="readonly"></el-input>
         </el-form-item>
 
         <el-form-item label="提升值（万元）" label-width="40vw">
@@ -116,7 +116,7 @@
         <el-divider content-position="left" class="divider">文字话术</el-divider><br>
 
 
-        <p v-if="'抽奖' === this.form.ljj_rights" class="speech_text">相当于您只要存入<span>{{ this.form.estimate_aum }}</span>万元，并存入7天通知存款（年利率0.9%），
+<!--        <p v-if="'抽奖' === this.form.ljj_rights" class="speech_text">相当于您只要存入<span>{{ this.form.estimate_aum }}</span>万元，并存入7天通知存款（年利率0.9%），
           且持有到<span>{{ this.form.this_month }}</span>月底，就可以拿利息<span>{{ this.form.deposit_rights }}</span>元，
           同时还可以享受立减金<span>{{ this.form.ljj_rights }}</span>。
           相当于至少年化收益率<span>{{ this.form.annual_rights_rate }}</span>。
@@ -125,6 +125,15 @@
           且持有到<span>{{ this.form.this_month }}</span>月底，就可以拿利息<span>{{ this.form.deposit_rights }}</span>元，
           同时还可以享受立减金<span>{{ this.form.ljj_rights }}</span>元。利息加立减金合计<span>{{ this.form.total_rights }}</span>元，
           就相当于至少年化收益率<span>{{ this.form.annual_rights_rate }}</span>。
+        </p>-->
+
+        <p v-if="'string' === this.form.ljj_type" class="speech_text">相当于您只要存入<span>{{ this.form.input_aum }}</span>万元，
+          并存入7天通知存款（年利率0.65%）， 且持有到<span>{{ this.form.this_month }}</span>月底，
+          就可以拿利息<span>{{ this.form.deposit_rights }}</span>元， 相当于至少年化收益率<span>{{ this.form.annual_rights_rate }}</span>。
+        </p>
+        <p v-else class="speech_text">相当于您只要转入<span>{{ this.form.input_aum }}</span>万元，并存入7天通知存款（年利率0.65%），
+          且持有到<span>{{ this.form.this_month }}</span>月底，就可以拿<span>{{ this.form.deposit_rights }}</span>元利息加等值奖励
+          合计<span>{{ this.form.total_rights }}</span>元， 就相当于至少年化收益率<span>{{ this.form.annual_rights_rate }}</span>。
         </p>
 
       </div>
@@ -142,14 +151,14 @@ export default {
     return {
       form: {
         start_date: '',
-        caculate_date: '',
-        last_month_aum: '20',
-        this_month_aum: '20',
-        estimate_aum: '90',
-        this_month_aum_real: '',
+        calculate_date: '',
+        max_aum: '',
+        estimate_aum: '',
+        input_aum: '',
+        real_aum: '',
         increase_aum: '',
         ljj_rights: '',
-        byl_rights: '',
+        ljj_type: 'number',
         deposit_rights: '',
         total_rights: '',
         annual_rights_rate: '',
@@ -163,9 +172,9 @@ export default {
     const now = new Date();
     const year = now.getFullYear();
     const month = String(now.getMonth() + 1).padStart(2, '0'); // 补零处理
-    const date = now.getDate();
+    const date = String(now.getDate() + 1).padStart(2, '0');
     this.form.start_date =  `${year}-${month}-01`;
-    this.form.caculate_date = `${year}-${month}-${date}`;
+    this.form.calculate_date = `${year}-${month}-${date}`;
 
     var file_path = "/stock.txt";
     this.loadJsonData(file_path);
@@ -194,10 +203,11 @@ export default {
       const month = now.getMonth() + 1; // JavaScript 的月份从 0 开始，所以要 +1\
       this.form.this_month = month;
       const count_of_days =  new Date(year, month, 0).getDate();
-      alert(this.form.estimate_aum + ' ' + count_of_days  + ' '  + this.form.calculate_date + ' ' + this.form.start_date + ' ' +  this.form.this_month_aum + ' ' + count_of_days + ' ' + count_of_days)
-      this.form.this_month_aum_real = ((this.form.estimate_aum * (count_of_days - this.getDaysBetween(this.form.caculate_date, this.form.start_date)) + this.form.this_month_aum * count_of_days) / count_of_days).toFixed(2);
-      this.form.increase_aum = (this.form.this_month_aum_real - this.form.last_month_aum).toFixed(2);
+      //alert(this.form.estimate_aum + ' ' + count_of_days  + ' '  + this.form.calculate_date + ' ' + this.form.start_date + ' ' +  this.form.this_month_aum + ' ' + count_of_days + ' ' + count_of_days)
+      this.form.real_aum = ((this.form.input_aum * (count_of_days - this.getDaysBetween(this.form.calculate_date, this.form.start_date)) + this.form.estimate_aum * count_of_days) / count_of_days).toFixed(2);
+      this.form.increase_aum = (this.form.real_aum - this.form.max_aum).toFixed(2);
 
+      this.form.ljj_type = 'number'
       if (this.form.increase_aum >= 600) {
         this.form.ljj_rights = 6000
       }else if (this.form.increase_aum >= 300) {
@@ -214,23 +224,27 @@ export default {
         this.form.ljj_rights = 15
       }else if (this.form.increase_aum >= 0.2) {
         this.form.ljj_rights = '抽奖'
+        this.form.ljj_type = 'string'
       }else {
         this.form.ljj_rights = ''
-      }
-
-      var ljj = this.json_data.ljj.find(ljj => this.form.ljj_rights === ljj.id);
-      if (ljj.stock !== 1) {
-        this.form.ljj_rights = '已兑完'
         this.form.ljj_type = 'string'
       }
 
-      this.form.deposit_rights = (this.form.estimate_aum * 0.009 * ((10 + count_of_days) - this.getDaysBetween(this.form.caculate_date, this.form.start_date) - 1) / 360 * 10000).toFixed(2);
-      if ('抽奖' === this.form.ljj_rights || '已兑完' === this.form.ljj_rights){
+      if ('number' === this.form.ljj_type) {
+        var ljj = this.json_data.ljj.find(ljj => this.form.ljj_rights === ljj.id);
+        if (ljj.stock !== 1) {
+          this.form.ljj_rights = '已兑完'
+          this.form.ljj_type = 'string'
+        }
+      }
+
+      this.form.deposit_rights = (this.form.input_aum * 0.0065 * (count_of_days - this.getDaysBetween(this.form.calculate_date, this.form.start_date)) / 360 * 10000).toFixed(2);
+      if ('string' === this.form.ljj_type){
         this.form.total_rights = eval(this.form.deposit_rights);
       }else {
         this.form.total_rights = eval(this.form.ljj_rights) + eval(this.form.deposit_rights);
       }
-      this.form.annual_rights_rate = (this.form.total_rights / this.form.estimate_aum / 10000 / (count_of_days - this.getDaysBetween(this.form.caculate_date, this.form.start_date) - 1) * 360 * 100).toFixed(2) + '%';
+      this.form.annual_rights_rate = (this.form.total_rights / this.form.real_aum / 10000 / (count_of_days - this.getDaysBetween(this.form.calculate_date, this.form.start_date)) * 360 * 100).toFixed(2) + '%';
 
       this.form.speech_display = true;
     },
