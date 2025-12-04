@@ -8,6 +8,12 @@
       切换计算器<i class="el-icon-arrow-down el-icon--right"></i>
     </el-button>
     <el-dropdown-menu slot="dropdown">
+      <router-link to="/c/newyyy">
+        <el-dropdown-item>新月月赢通知存款</el-dropdown-item>
+      </router-link>
+      <router-link to="/c/yyydqck">
+        <el-dropdown-item>月月赢保有短定产品</el-dropdown-item>
+      </router-link>
       <router-link to="/c/yyydqck">
         <el-dropdown-item>月月赢保有短定产品</el-dropdown-item>
       </router-link>

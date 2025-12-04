@@ -4,14 +4,20 @@ import AUMView from '../views/HomeView.vue'
 import YYYView from "@/views/YYYView.vue";
 import YYYQTCKView from "@/views/YYYQTCKView.vue";
 import YYYDQCKView from "@/views/YYYDQCKView.vue";
+import NewYYYView from "@/views/NewYYYView.vue";
 
 Vue.use(VueRouter)
 
 const routes = [
   {
     path: '/',
-    name: 'yyy',
-    component: YYYView
+    name: 'home',
+    component: NewYYYView
+  },
+  {
+    path: '/c/newyyy',
+    name: 'newyyy',
+    component: NewYYYView
   },
   {
     path: '/c/aum',

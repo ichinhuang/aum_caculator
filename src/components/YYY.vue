@@ -141,11 +141,11 @@ export default {
   data() {
       return {
         form: {
-          start_date: '2025-04-01',
-          caculate_date: '2025-04-25',
-          last_month_aum: '20',
-          this_month_aum: '20',
-          estimate_aum: '90',
+          start_date: '',
+          caculate_date: '',
+          last_month_aum: '',
+          this_month_aum: '',
+          estimate_aum: '',
           this_month_aum_real: '',
           increase_aum: '',
           ljj_rights: '',
@@ -194,7 +194,6 @@ export default {
         const month = now.getMonth() + 1; // JavaScript 的月份从 0 开始，所以要 +1\
         this.form.this_month = month;
         const count_of_days =  new Date(year, month, 0).getDate();
-        alert(this.form.estimate_aum + ' ' + count_of_days  + ' '  + this.form.caculate_date + ' ' + this.form.start_date + ' ' +  this.form.this_month_aum + ' ' + count_of_days + ' ' + count_of_days)
         this.form.this_month_aum_real = ((this.form.estimate_aum * (count_of_days - this.getDaysBetween(this.form.caculate_date, this.form.start_date)) + this.form.this_month_aum * count_of_days) / count_of_days).toFixed(2);
         this.form.increase_aum = (this.form.this_month_aum_real - this.form.last_month_aum).toFixed(2);
 
